@@ -1,0 +1,16 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/legendtrade-info-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: The `/wallets/*` endpoints are authenticated — unauthenticated requests return
+    `401 {"error":"Unauthorized"}`. Legend does not publish the credential format for this operator
+    surface; `bearer` is recorded as the observed-unauthenticated default and is NOT a documented
+    provider claim.
+  sources:
+  - openapi/legendtrade-info-openapi.yml
