@@ -1,0 +1,105 @@
+generated: '2026-07-19'
+method: derived
+source: >-
+  openapi/legendtrade-info-openapi.yml + asyncapi/legendtrade-ws-asyncapi.yml +
+  live responses from https://api.legend.trade
+description: >-
+  Entity graph for Legend's API surface, DERIVED from the generated OpenAPI
+  schemas and from live response bodies observed on 2026-07-19. Legend
+  publishes no object reference, so only entities and fields actually seen on
+  the wire (or enumerated by the API's own root document) are modelled. Account
+  and order entities are named by the info request types and WebSocket channels
+  that return them, but their field shapes are NOT modelled because Legend does
+  not publish them and they require authentication to observe.
+entities:
+- name: Asset
+  description: A tradable market in the perpetuals universe.
+  source: 'POST /info {"type":"meta"} -> universe[]'
+  observed: true
+  identifier: name
+  fields:
+  - {name: name, type: string, description: Ticker symbol, e.g. BTC.}
+  - {name: szDecimals, type: integer, description: Size precision for orders.}
+  - {name: maxLeverage, type: integer, description: Maximum leverage allowed on this asset.}
+  - {name: marginTableId, type: integer, description: Reference to the margin tier table governing this asset.}
+  - {name: isDelisted, type: boolean, description: Present and true when the market has been delisted.}
+- name: Sparkline
+  description: 24 hours of close-price candles for one coin.
+  source: GET /sparklines, GET /sparklines/{coin}
+  observed: true
+  identifier: coin symbol (map key)
+  fields:
+  - {name: candles, type: array, description: Ordered Candle entries.}
+- name: Candle
+  description: A single price observation.
+  source: GET /sparklines
+  observed: true
+  fields:
+  - {name: t, type: integer, description: Epoch milliseconds.}
+  - {name: c, type: string, description: Close price as a decimal string.}
+- name: Health
+  description: Service health snapshot with per-dependency checks.
+  source: GET /health
+  observed: true
+  fields:
+  - {name: status, type: string}
+  - {name: gitSha, type: string, description: Deployed build identifier.}
+  - {name: timestamp, type: string, description: ISO-8601 UTC.}
+  - {name: checks, type: object, description: Map of dependency name to HealthCheck.}
+- name: HealthCheck
+  description: One dependency's health and latency.
+  source: GET /health -> checks.*
+  observed: true
+  fields:
+  - {name: status, type: string}
+  - {name: latencyMs, type: integer}
+  known_dependencies: [hlVisor, postgres]
+- name: Wallet
+  description: An on-chain wallet registered with Legend for fill tracking.
+  source: /wallets/* endpoints
+  observed: false
+  identifier: address
+  note: Authenticated surface; field shape not published and not observable.
+- name: Order
+  description: A resting or historical order.
+  source: 'POST /info types openOrders, frontendOpenOrders; WebSocket channels openOrders, orderUpdates'
+  observed: false
+  note: Authenticated surface; field shape not published.
+- name: Fill
+  description: An executed trade against the account.
+  source: 'POST /info type userFills; WebSocket channels userFills, userTwapSliceFills'
+  observed: false
+- name: ClearinghouseState
+  description: Account margin, balance, and open-position state.
+  source: 'POST /info type clearinghouseState; WebSocket channel clearinghouseState'
+  observed: false
+- name: TwapOrder
+  description: A time-weighted-average-price order sliced over a window.
+  source: WebSocket channels twapStates, userTwapSliceFills, userTwapHistory
+  observed: false
+- name: FundingPayment
+  description: Periodic funding exchanged between long and short holders of a perpetual.
+  source: WebSocket channel userFundings
+  observed: false
+- name: LedgerUpdate
+  description: A non-funding account ledger movement.
+  source: WebSocket channel userNonFundingLedgerUpdates
+  observed: false
+relationships:
+- {from: Sparkline, to: Candle, type: has_many, via: candles}
+- {from: Sparkline, to: Asset, type: belongs_to, via: coin symbol, note: Map key matches Asset.name.}
+- {from: Health, to: HealthCheck, type: has_many, via: checks}
+- {from: Asset, to: Order, type: has_many, via: asset symbol}
+- {from: Order, to: Fill, type: has_many, via: order id, note: Inferred from Hyperliquid order/fill semantics; not observed.}
+- {from: Wallet, to: Fill, type: has_many, via: address, note: Wallet registration exists specifically for fill tracking.}
+- {from: Wallet, to: ClearinghouseState, type: has_one, via: address}
+- {from: TwapOrder, to: Fill, type: has_many, via: TWAP slice}
+notes:
+- >-
+  Domain vocabulary (perp, cross vs isolated margin, funding, liquidation,
+  maker/taker, TWAP, scale order) is inherited from Hyperliquid, which Legend
+  documents by linking to Hyperliquid's own docs rather than restating.
+- >-
+  Legend's social/game layer (Arena duels, ELO, clans, copy trading, referrals)
+  is documented as product but has no public API surface, so it is not modelled
+  here.

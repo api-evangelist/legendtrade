@@ -1,0 +1,126 @@
+generated: '2026-07-19'
+method: derived
+source: >-
+  https://api.legend.trade (self-describing root) + live endpoint probes +
+  https://docs.legend.trade product documentation
+description: >-
+  Cross-cutting request/response semantics for Legend's API surface. Legend
+  publishes product documentation but no developer/API reference, so these
+  conventions are DERIVED from the self-describing root document and from live
+  probes of each endpoint. Fields Legend does not document are recorded as
+  `documented: false` rather than guessed.
+
+base_url: https://api.legend.trade
+api_style: >-
+  JSON over HTTPS. A single multiplexed POST /info endpoint follows the
+  Hyperliquid convention (the query is selected by a `type` field in the body
+  rather than by path), alongside conventional REST paths for health,
+  sparklines, and wallet registration. A subscription-based WebSocket at /ws
+  carries the event surface.
+upstream: >-
+  Legend is a client of Hyperliquid (https://hyperliquid.xyz); orders placed on
+  Legend execute on Hyperliquid's order book, and the info/WebSocket surface is
+  deliberately Hyperliquid-compatible.
+
+authentication:
+  public_endpoints:
+  - GET /health
+  - POST /info
+  - GET /sparklines
+  - GET /sparklines/{coin}
+  authenticated_endpoints:
+  - POST /wallets/register
+  - POST /wallets/bulk
+  - POST /wallets/sync
+  - GET /wallets/stats
+  - DELETE /wallets/{address}
+  observed_behavior: Unauthenticated calls to /wallets/* return HTTP 401 with `{"error":"Unauthorized"}`.
+  scheme_documented: false
+  detail: authentication/legendtrade-authentication.yml
+
+idempotency:
+  supported: false
+  documented: false
+  note: >-
+    Legend documents no idempotency key or replay contract, and no
+    Idempotency-Key header or parameter appears on any observed endpoint.
+    Deliberately NOT wired as an `Idempotency` pointer in apis.yml.
+
+pagination:
+  documented: false
+  note: >-
+    No pagination parameters are documented or observed. The Hyperliquid-style
+    info queries are bounded by request-type semantics (e.g. candle snapshots)
+    rather than by a cursor or page convention.
+
+field_expansion:
+  supported: false
+  documented: false
+
+metadata:
+  supported: false
+  documented: false
+
+request_tracing:
+  request_id_header: null
+  documented: false
+  note: >-
+    No request-id response header is documented. GET /health does return the
+    deployed `gitSha`, which identifies the running build for support purposes.
+
+versioning:
+  scheme: none
+  documented: false
+  note: >-
+    Paths carry no version segment and no version header is documented. The
+    service reports an internal package version (`@legend/hl-node` 0.1.0) and a
+    per-deploy `gitSha` on /health.
+  detail: lifecycle/legendtrade-lifecycle.yml
+
+error_envelope:
+  media_type: application/json
+  rfc9457: false
+  shape: '{ "error": "<message>" }'
+  observed:
+    - status: 400
+      body: '{"error":"Unknown request type: bogusType"}'
+    - status: 401
+      body: '{"error":"Unauthorized"}'
+  detail: errors/legendtrade-problem-types.yml
+
+rate_limits:
+  documented: false
+  signal_status: null
+  note: No rate-limit policy or response headers are documented by Legend.
+
+events:
+  transport: WebSocket (subscription-based)
+  url: wss://api.legend.trade/ws
+  channel_families: [marketData, userData]
+  detail: asyncapi/legendtrade-ws-asyncapi.yml
+  webhooks: false
+
+other_conventions:
+  - name: Multiplexed info endpoint
+    detail: >-
+      POST /info selects its query with a `type` field from a fixed set
+      (candleSnapshot, recentTrades, meta, metaAndAssetCtxs, openOrders,
+      frontendOpenOrders, clearinghouseState, userFills). An unrecognised type
+      returns 400. GET /info returns 404 — the endpoint is POST-only.
+  - name: Prices as decimal strings
+    detail: >-
+      Sparkline close prices are returned as strings (e.g. "64720") rather than
+      floats, preserving exact decimal precision.
+  - name: Timestamps
+    detail: >-
+      Candle timestamps are epoch milliseconds (`t`); /health returns an
+      ISO-8601 UTC `timestamp`.
+  - name: Asset precision
+    detail: >-
+      `type: meta` returns a `universe` array whose entries carry `szDecimals`
+      (size precision), `maxLeverage`, `marginTableId`, and `isDelisted`.
+  - name: Non-API surfaces
+    detail: >-
+      Legend also exposes a Telegram bot command surface
+      (https://docs.legend.trade/telegram/commands) which is a user interface,
+      not a programmable API, and is not modelled as an API artifact.

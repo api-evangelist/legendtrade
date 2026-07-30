@@ -1,0 +1,20 @@
+{
+  "provider": "legendtrade",
+  "sources": [
+    "legendtrade-health-api-openapi.yml",
+    "legendtrade-info-api-openapi.yml",
+    "legendtrade-market-data-api-openapi.yml",
+    "legendtrade-wallets-api-openapi.yml"
+  ],
+  "outputs": [
+    "legendtrade-health-api-openapi.yml",
+    "legendtrade-info-api-openapi.yml",
+    "legendtrade-market-data-api-openapi.yml",
+    "legendtrade-wallets-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

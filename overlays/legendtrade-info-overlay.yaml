@@ -1,0 +1,83 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Legend Info API
+  version: 1.0.0
+extends: openapi/legendtrade-info-openapi.yml
+x-api-evangelist:
+  generated: '2026-07-19'
+  method: generated
+  source: >-
+    API Evangelist enrichment pipeline. Records the provenance and caveats that
+    apply to the generated Legend spec, so consumers can tell provider-published
+    facts from pipeline-derived ones. Note that the base spec is itself
+    generated from Legend's self-describing API root — Legend publishes no
+    OpenAPI of its own.
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-07-19'
+    x-apievangelist-spec-provenance: >-
+      Generated from the API's self-describing root document (GET
+      https://api.legend.trade) and verified with live probes of every
+      endpoint. Legend's linked openapi.json is an unmodified Mintlify sample
+      scaffold and was not used.
+    x-apievangelist-artifacts:
+      conventions: conventions/legendtrade-conventions.yml
+      errors: errors/legendtrade-problem-types.yml
+      authentication: authentication/legendtrade-authentication.yml
+      lifecycle: lifecycle/legendtrade-lifecycle.yml
+      conformance: conformance/legendtrade-conformance.yml
+      data_model: data-model/legendtrade-data-model.yml
+      events: asyncapi/legendtrade-ws-asyncapi.yml
+      mcp: mcp/legendtrade-mcp.yml
+      skills: skills/_index.yml
+- target: $.info
+  update:
+    x-apievangelist-upstream:
+      name: Hyperliquid
+      url: https://hyperliquid.xyz
+      relationship: >-
+        Legend is a builder on Hyperliquid. Orders execute on Hyperliquid's
+        order book and this API deliberately mirrors Hyperliquid's info and
+        WebSocket conventions, so Hyperliquid's docs are the authority for
+        per-request-type payload shapes.
+- target: $.paths['/info'].post
+  update:
+    x-apievangelist-note: >-
+      Multiplexed endpoint — the response schema varies by request type and is
+      not modelled per type, because Legend publishes no payload reference.
+      Only the `meta` response was observed live.
+    x-agentic-access:
+      action-class: connected
+      consequence: read
+      audience: null
+- target: $.paths['/health'].get
+  update:
+    x-agentic-access:
+      action-class: connected
+      consequence: read
+      audience: null
+- target: $.paths['/sparklines'].get
+  update:
+    x-agentic-access:
+      action-class: connected
+      consequence: read
+      audience: null
+- target: $.paths['/wallets/register'].post
+  update:
+    x-apievangelist-note: >-
+      Authenticated operator surface. Credential format is not published by
+      Legend; the securityScheme in the base spec records observed 401
+      behaviour, not a provider claim.
+    x-agentic-access:
+      action-class: acting
+      consequence: write
+      audit: required
+      audience: null
+- target: $.paths['/wallets/{address}'].delete
+  update:
+    x-agentic-access:
+      action-class: acting
+      consequence: write
+      audit: required
+      audience: null

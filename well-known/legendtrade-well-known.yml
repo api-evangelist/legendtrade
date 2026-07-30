@@ -1,0 +1,41 @@
+generated: '2026-07-19'
+method: probed
+source: live HTTP probes of the /.well-known/ surface on every Legend host
+description: >-
+  Probe record for Legend's /.well-known/ discovery surface. Every path on
+  every host returned 404 — Legend publishes no well-known discovery documents
+  at this time. This is a recorded negative result, not a gap in the probe.
+  No WellKnown, SecurityTxt, or APICatalog pointer is wired into apis.yml
+  because there is nothing to point at.
+hosts:
+  - host: https://api.legend.trade
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+  - host: https://www.legend.trade
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+  - host: https://legend.trade
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+  - host: https://docs.legend.trade
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+summary:
+  documents_found: 0
+  security_txt: false
+  openid_configuration: false
+  api_catalog: false

@@ -1,0 +1,54 @@
+generated: '2026-07-19'
+method: derived
+source: >-
+  live probes of https://api.legend.trade + openapi/legendtrade-info-openapi.yml
+description: >-
+  Legend's API error surface. Legend publishes no error reference — these
+  entries are DERIVED from error responses observed live against the production
+  API on 2026-07-19, plus the responses modelled in the generated OpenAPI. Only
+  status codes actually observed carry an example body; nothing is invented.
+format: legend-error-envelope
+rfc9457: false
+envelope:
+  media_type: application/json
+  shape: '{ "error": "<human-readable message>" }'
+  fields:
+  - name: error
+    type: string
+    description: A human-readable message. There is no machine-readable code, type URI, or detail field.
+  notes: >-
+    Legend does not use RFC 9457 application/problem+json. The envelope carries
+    no stable error code, so clients must branch on HTTP status and, where
+    necessary, string-match the message.
+problems:
+- status: 400
+  title: Unknown request type
+  description: >-
+    The `type` field in a POST /info body is not one of the supported info
+    query types.
+  observed_body: '{"error":"Unknown request type: bogusType"}'
+  remediation: >-
+    Send a supported type — one of candleSnapshot, recentTrades, meta,
+    metaAndAssetCtxs, openOrders, frontendOpenOrders, clearinghouseState,
+    userFills.
+  source_operation: openapi/legendtrade-info-openapi.yml#postInfo
+  verified: true
+- status: 401
+  title: Unauthorized
+  description: Credentials are missing or invalid on an authenticated endpoint.
+  observed_body: '{"error":"Unauthorized"}'
+  remediation: >-
+    The /wallets/* surface is an authenticated operator surface. Legend does not
+    publish credentials or a credential format for it publicly.
+  source_operation: openapi/legendtrade-info-openapi.yml#getWalletStats
+  verified: true
+- status: 404
+  title: Not found
+  description: >-
+    Returned for unknown paths and for correct paths called with the wrong
+    method — notably GET /info, which is POST-only.
+  remediation: Check the method and path; POST /info rather than GET /info.
+  verified: true
+notes:
+- No rate-limit (429) response is documented by Legend, and none was triggered during probing.
+- No error-code registry, decline-code reference, or retry guidance is published.

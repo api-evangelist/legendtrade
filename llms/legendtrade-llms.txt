@@ -1,0 +1,34 @@
+# Legend Docs
+
+## Docs
+
+- [Fees](https://docs.legend.trade/about/fees.md): Trading fees on Legend
+- [What is Legend?](https://docs.legend.trade/about/overview.md): The esports layer for trading
+- [Who is this for?](https://docs.legend.trade/about/who.md): We built Legend for you.
+- [Why are we building this?](https://docs.legend.trade/about/why.md): The Legend Thesis
+- [Arena ELO](https://docs.legend.trade/arena/elo.md): How Arena duel ratings work
+- [Arena](https://docs.legend.trade/arena/index.md): Competitive trading modes in Legend
+- [Mechanics](https://docs.legend.trade/arena/mechanics.md): How Arena matches work
+- [Queues](https://docs.legend.trade/arena/queues.md): Match queues, timing windows, and formats
+- [Wagers](https://docs.legend.trade/arena/wagers.md): Stake sizes, payouts, and rules
+- [Chat](https://docs.legend.trade/chat.md): Talk to your opponents, clanmates, and friends
+- [Clans](https://docs.legend.trade/clans.md): Legend's team system
+- [Copy Trading](https://docs.legend.trade/copy-trading/index.md): Automatically mirror the trades of top traders on Legend
+- [Limits & Safeguards](https://docs.legend.trade/copy-trading/limits.md): Copy trading deposit limits, asset restrictions, and safety mechanisms
+- [FAQ](https://docs.legend.trade/faq.md): Frequently asked questions about Legend
+- [Feed](https://docs.legend.trade/feed.md): What's happening on Legend, right now
+- [About](https://docs.legend.trade/index.md): The competitive social trading platform
+- [Android](https://docs.legend.trade/platform/android.md): Legend on Android
+- [iOS](https://docs.legend.trade/platform/ios.md): Legend on iPhone
+- [Web App](https://docs.legend.trade/platform/web.md): Legend on Desktop
+- [Referrals and Rewards](https://docs.legend.trade/rewards-and-points/referrals-and-rewards.md): Earn by growing Legend
+- [Social](https://docs.legend.trade/social.md): Trading is better with friends
+- [Telegram Commands](https://docs.legend.trade/telegram/commands.md): Every command the Legend Telegram bot understands
+- [Legend on Telegram](https://docs.legend.trade/telegram/index.md): Trade perps, track positions, set alerts, and compete — all from Telegram
+- [Trading ELO](https://docs.legend.trade/trading/elo.md): How the composite trader rating works
+- [Trading](https://docs.legend.trade/trading/index.md): Trading perpetual contracts on Legend
+- [Order Types](https://docs.legend.trade/trading/order-types.md): All order types available on Legend
+
+## OpenAPI Specs
+
+- [openapi](https://docs.legend.trade/api-reference/openapi.json)

@@ -1,0 +1,58 @@
+generated: '2026-07-19'
+method: derived
+source: >-
+  live probes of https://api.legend.trade and https://legend.trade +
+  https://docs.legend.trade
+description: >-
+  Versioning, deprecation, and operational-transparency posture for Legend's
+  API. Legend publishes no versioning policy, no deprecation policy, no SLA,
+  and no status page — each absence below is a probed negative result, not an
+  unchecked field. Because none of these surfaces exist, no `StatusPage` or
+  `Deprecation` pointer is wired into apis.yml.
+versioning:
+  scheme: none
+  documented: false
+  current: null
+  detail: >-
+    API paths carry no version segment and no version request header is
+    documented. The service reports an internal package version
+    (`@legend/hl-node` 0.1.0) in its root document and a per-deploy `gitSha`
+    on GET /health — build identifiers, not a consumer version contract.
+  build_identifier:
+    endpoint: GET /health
+    field: gitSha
+    observed: 8d5b251
+deprecation:
+  policy_url: null
+  documented: false
+  sunset_header: false
+  detail: >-
+    No deprecation policy, no RFC 8594 Sunset/Deprecation header support
+    documented or observed. Note that `type: meta` marks individual markets
+    with `isDelisted: true` — this is asset delisting on the underlying
+    Hyperliquid venue, not API deprecation.
+sla:
+  url: null
+  uptime_target: null
+  documented: false
+status_page:
+  url: null
+  probed:
+  - {url: 'https://status.legend.trade', status: 404}
+  - {url: 'https://www.legend.trade/status', status: 404}
+  detail: >-
+    No public status page. GET /health is the only live health signal, and it
+    exposes per-dependency checks (hlVisor, postgres) with latency.
+changelog:
+  url: null
+  documented: false
+  detail: No dated changelog or release-notes surface was found on the site or docs.
+deprecated_operations: []
+dependencies:
+- name: Hyperliquid
+  url: https://hyperliquid.xyz
+  role: >-
+    Legend's execution venue and the upstream whose API shape Legend mirrors.
+    Legend's own availability and market coverage track Hyperliquid's.
+  docs: https://hyperliquid.gitbook.io/hyperliquid-docs
+  status_page: null
