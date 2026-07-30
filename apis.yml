@@ -1,22 +1,113 @@
 aid: legendtrade
 name: LegendTrade
-description: 'LegendTrade is a company surfaced as a portfolio company of electric-capital and added to
-  the API Evangelist network as a stub for enrichment. Sector: defi. This profile is a lead awaiting the
-  enrichment pipeline.'
+description: >-
+  Legend (legend.trade) is a competitive social trading platform — it describes itself as "the esports
+  layer for trading". Users trade perpetual contracts across 500+ crypto, equity, and commodity markets
+  with leverage, and the platform wraps that in game mechanics: Arena head-to-head duels with ELO
+  ratings and wagers, clans, leaderboards, a social feed, referrals, and copy trading that mirrors top
+  traders in a single tap. Orders placed on Legend execute on Hyperliquid's on-chain order book, with
+  Legend charging a builder-code platform fee on top of Hyperliquid's volume-tiered maker/taker fees.
+  Legend is available on iOS, Android, web, and through a Telegram bot. Its programmable surface is a
+  Hyperliquid-compatible read API at api.legend.trade (a multiplexed POST /info endpoint, custom
+  sparklines, and an authenticated wallet-registration surface) plus a subscription-based WebSocket
+  carrying market-data and account channels. Legend is backed by Electric Capital.
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://www.legend.trade/images/og-image.png
 url: https://raw.githubusercontent.com/api-evangelist/legendtrade/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - electric-capital
-x-tier: stub
-x-tier-reason: portfolio-lead
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
 tags:
 - Company
 - Defi
-apis: []
+- Trading
+- Cryptocurrency
+- Perpetual Futures
+- Social Trading
+- Copy Trading
+- Market Data
+- Hyperliquid
+- WebSocket
+apis:
+- aid: legendtrade:websocket
+  name: Legend WebSocket API
+  description: >-
+    Legend's Hyperliquid-compatible WebSocket at wss://api.legend.trade/ws, using subscription-based messaging.
+    Public marketData channels stream trades, candles, and active asset context; account userData channels
+    stream fills, open orders, order updates, clearinghouse state, funding, ledger updates, TWAP state
+    and history, and notifications.
+  humanURL: https://docs.legend.trade
+  baseURL: https://api.legend.trade/ws
+  tags:
+  - Streaming
+  - Market Data
+  - WebSocket
+  properties:
+  - type: AsyncAPI
+    url: asyncapi/legendtrade-ws-asyncapi.yml
+- aid: legendtrade:legendtrade-health-api
+  name: LegendTrade Health API
+  description: Service health and liveness.
+  humanURL: https://docs.legend.trade
+  baseURL: https://api.legend.trade
+  tags:
+  - Health
+  properties:
+  - type: OpenAPI
+    url: openapi/legendtrade-health-api-openapi.yml
+  - type: Documentation
+    url: https://docs.legend.trade
+- aid: legendtrade:legendtrade-info-api
+  name: LegendTrade Info API
+  description: Hyperliquid-compatible market and account info queries.
+  humanURL: https://docs.legend.trade
+  baseURL: https://api.legend.trade
+  tags:
+  - Info
+  properties:
+  - type: OpenAPI
+    url: openapi/legendtrade-info-api-openapi.yml
+  - type: Documentation
+    url: https://docs.legend.trade
+- aid: legendtrade:legendtrade-market-data-api
+  name: LegendTrade Market Data API
+  description: Legend-specific market data extensions.
+  humanURL: https://docs.legend.trade
+  baseURL: https://api.legend.trade
+  tags:
+  - Market Data
+  properties:
+  - type: OpenAPI
+    url: openapi/legendtrade-market-data-api-openapi.yml
+  - type: Documentation
+    url: https://docs.legend.trade
+- aid: legendtrade:legendtrade-wallets-api
+  name: LegendTrade Wallets API
+  description: Wallet registration for fill tracking (authenticated).
+  humanURL: https://docs.legend.trade
+  baseURL: https://api.legend.trade
+  tags:
+  - Wallets
+  properties:
+  - type: OpenAPI
+    url: openapi/legendtrade-wallets-api-openapi.yml
+  - type: Documentation
+    url: https://docs.legend.trade
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -25,3 +116,46 @@ maintainers:
 common:
 - type: Website
   url: https://www.legend.trade/
+- type: DeveloperPortal
+  url: https://docs.legend.trade
+- type: Documentation
+  url: https://docs.legend.trade
+- type: GettingStarted
+  url: https://docs.legend.trade/about/overview
+- type: Support
+  url: https://www.legend.trade/faq
+- type: Blog
+  url: https://www.legend.trade/blog
+- type: SignUp
+  url: https://app.legend.trade/login
+- type: TermsOfService
+  url: https://www.legend.trade/terms
+- type: PrivacyPolicy
+  url: https://www.legend.trade/privacy
+- type: Pricing
+  url: https://docs.legend.trade/about/fees
+- type: LLMsTxt
+  url: llms/legendtrade-llms.txt
+- type: Authentication
+  url: authentication/legendtrade-authentication.yml
+- type: Conventions
+  url: conventions/legendtrade-conventions.yml
+- type: ErrorCatalog
+  url: errors/legendtrade-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/legendtrade-lifecycle.yml
+- type: Conformance
+  url: conformance/legendtrade-conformance.yml
+- type: DataModel
+  url: data-model/legendtrade-data-model.yml
+- type: DomainSecurity
+  url: security/legendtrade-domain-security.yml
+- type: MCPServer
+  url: mcp/legendtrade-mcp.yml
+- type: AgentSkill
+  url: skills/_index.yml
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence
