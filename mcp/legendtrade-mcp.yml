@@ -2,12 +2,10 @@ generated: '2026-07-19'
 method: derived
 status: candidate
 source: openapi/legendtrade-info-openapi.yml
-description: >-
-  A CANDIDATE MCP server for Legend's public read API. Legend publishes no
-  hosted or remote MCP server — searches of the docs, the API surface, and npm
-  found none. These tools are DERIVED one-per-operation from the generated
-  OpenAPI and describe what an MCP server over Legend's public surface would
-  expose. This is a proposal, not a Legend product.
+description: A CANDIDATE MCP server for Legend's public read API. Legend publishes no hosted or remote
+  MCP server — searches of the docs, the API surface, and npm found none. These tools are DERIVED one-per-operation
+  from the generated OpenAPI and describe what an MCP server over Legend's public surface would expose.
+  This is a proposal, not a Legend product.
 server:
   name: legendtrade
   transport: http
@@ -16,15 +14,13 @@ server:
   upstream_api: https://api.legend.trade
 tools:
 - name: get_health
-  description: >-
-    Check Legend API health — returns status, deployed build SHA, and
-    per-dependency latency for the Hyperliquid visor and Postgres.
+  description: Check Legend API health — returns status, deployed build SHA, and per-dependency latency
+    for the Hyperliquid visor and Postgres.
   source_operation: openapi/legendtrade-info-openapi.yml#getHealth
   auth_required: false
 - name: get_market_meta
-  description: >-
-    List the tradable perpetuals universe with size precision, maximum
-    leverage, margin tier, and delisting status per asset.
+  description: List the tradable perpetuals universe with size precision, maximum leverage, margin tier,
+    and delisting status per asset.
   source_operation: 'openapi/legendtrade-info-openapi.yml#postInfo (type: meta)'
   auth_required: false
 - name: get_market_meta_and_contexts
@@ -64,17 +60,24 @@ tools:
   source_operation: openapi/legendtrade-info-openapi.yml#getCoinSparkline
   auth_required: false
 excluded_operations:
-- operations: [registerWallet, bulkRegisterWallets, syncWallets, unregisterWallet, getWalletStats]
-  reason: >-
-    Authenticated operator surface for fill tracking, not consumer-facing.
-    Legend publishes no credential format for it, and wallet registration is a
-    write operation with account-level consequence — deliberately excluded from
-    the candidate read-only tool set.
+- operations:
+  - registerWallet
+  - bulkRegisterWallets
+  - syncWallets
+  - unregisterWallet
+  - getWalletStats
+  reason: Authenticated operator surface for fill tracking, not consumer-facing. Legend publishes no credential
+    format for it, and wallet registration is a write operation with account-level consequence — deliberately
+    excluded from the candidate read-only tool set.
 notes:
-- >-
-  Legend's API is read-only in public. There is no order-placement endpoint on
-  api.legend.trade — orders are placed through Legend's apps, the Telegram bot,
-  or Hyperliquid directly, so no trading tools are proposed here.
-- >-
-  The WebSocket surface (asyncapi/legendtrade-ws-asyncapi.yml) would suit an
-  MCP resource subscription rather than a tool; it is not modelled as tools.
+- Legend's API is read-only in public. There is no order-placement endpoint on api.legend.trade — orders
+  are placed through Legend's apps, the Telegram bot, or Hyperliquid directly, so no trading tools are
+  proposed here.
+- The WebSocket surface (asyncapi/legendtrade-ws-asyncapi.yml) would suit an MCP resource subscription
+  rather than a tool; it is not modelled as tools.
+deployment:
+  mode: none
+  verified: derived
+  tools: 11
+  checked: '2026-08-12'
+  source: catalog MCP census

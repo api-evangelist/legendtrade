@@ -1,0 +1,95 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Legend Info Health Wallets API",
+    "version": "0.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Wallets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Register a wallet for fill tracking",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.legend.trade/wallets/register",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Authenticated operator endpoint. Unauthenticated calls return HTTP 401."
+        },
+        {
+          "info": {
+            "name": "Bulk register wallets",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.legend.trade/wallets/bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Bulk register wallets"
+        },
+        {
+          "info": {
+            "name": "Sync all wallets from Postgres to cache",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.legend.trade/wallets/sync"
+          },
+          "docs": "Sync all wallets from Postgres to cache"
+        },
+        {
+          "info": {
+            "name": "Get wallet sync stats",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.legend.trade/wallets/stats"
+          },
+          "docs": "Get wallet sync stats"
+        },
+        {
+          "info": {
+            "name": "Unregister a wallet",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.legend.trade/wallets/:address",
+            "params": [
+              {
+                "name": "address",
+                "value": "",
+                "type": "path",
+                "description": "On-chain wallet address."
+              }
+            ]
+          },
+          "docs": "Unregister a wallet"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

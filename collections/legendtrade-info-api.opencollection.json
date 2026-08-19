@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Legend Health Info API",
+    "version": "0.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Info",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Hyperliquid-compatible info query",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.legend.trade/info",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Single multiplexed read endpoint. The `type` field in the request body selects the query; the response shape varies by type. Unknown types return HTTP 400 with an `error` envelope. GET on this path returns 404 — the endpoint is POST-only."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,191 @@
+{
+  "item": [
+    {
+      "id": "9fb28d9f-2969-431b-8c6f-842639ff7de0",
+      "name": "Info",
+      "description": {
+        "content": "Hyperliquid-compatible market and account info queries.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e9042d72-0d13-4168-a303-f3135a9c445b",
+          "name": "Hyperliquid-compatible info query",
+          "request": {
+            "name": "Hyperliquid-compatible info query",
+            "description": {
+              "content": "Single multiplexed read endpoint. The `type` field in the request body selects the query; the response shape varies by type. Unknown types return HTTP 400 with an `error` envelope. GET on this path returns 404 — the endpoint is POST-only.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "info"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4b45e321-c61d-4347-984f-04751e271ef8",
+              "name": "Query result. Shape depends on the requested `type`; for `meta` the response carries a `universe` array of tradable assets.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"meta\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"universe\": [\n    {\n      \"name\": \"BTC\",\n      \"szDecimals\": 5,\n      \"maxLeverage\": 40,\n      \"marginTableId\": 56\n    },\n    {\n      \"name\": \"ETH\",\n      \"szDecimals\": 4,\n      \"maxLeverage\": 25,\n      \"marginTableId\": 55\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "51ba3d84-8043-45c5-bb8e-df42a6c7f2a3",
+              "name": "Unknown or malformed request type.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "info"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"meta\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Unknown request type: bogusType\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.legend.trade",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "86455616-357f-4254-89a5-413d0f0eb76e",
+    "name": "Legend Health Info API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The public read surface of Legend's trading platform, served at https://api.legend.trade. The service self-identifies as `@legend/hl-node` v0.1.0 — \"Hyperliquid-compatible info API with local processing\" — and mirrors the Hyperliquid `POST /info` request-type convention while adding Legend-specific endpoints (`/sparklines`) and an operator-authenticated wallet registration surface used for fill tracking.\nThis description was GENERATED by the API Evangelist enrichment pipeline from the API's own self-describing root document (GET https://api.legend.trade) and from live probes of each endpoint on 2026-07-19. Legend publishes an `openapi.json` at docs.legend.trade/api-reference/openapi.json, but as of this run that file is the unmodified Mintlify \"OpenAPI Plant Store\" scaffold and does not describe the Legend API — it was deliberately NOT harvested. Request/response schemas below are typed only where a live response was observed; unobserved shapes are left open rather than invented.\n\nContact Support:\n Name: Legend",
+      "type": "text/plain"
+    }
+  }
+}

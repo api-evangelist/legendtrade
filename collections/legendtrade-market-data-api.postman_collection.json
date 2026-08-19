@@ -1,0 +1,224 @@
+{
+  "item": [
+    {
+      "id": "67f398eb-31a8-41ef-82d1-320def8d18dd",
+      "name": "Market Data",
+      "description": {
+        "content": "Legend-specific market data extensions.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "55663889-92a6-4626-a74d-221b41876af5",
+          "name": "24h price sparklines for multiple coins",
+          "request": {
+            "name": "24h price sparklines for multiple coins",
+            "description": {
+              "content": "Legend-custom endpoint. Returns 24 hours of close-price candles keyed by coin symbol. Candle entries carry `t` (epoch milliseconds) and `c` (close price as a string).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "sparklines"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "coins",
+                  "value": "<string>",
+                  "description": "(Required) Comma-separated coin symbols, e.g. `BTC,ETH`."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "395c7a00-ea12-4436-9d88-3c2216664b82",
+              "name": "Sparklines keyed by coin symbol.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sparklines"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "coins",
+                      "value": "BTC,ETH"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"BTC\": {\n    \"candles\": [\n      {\n        \"t\": 1784409300000,\n        \"c\": \"64720\"\n      },\n      {\n        \"t\": 1784411100000,\n        \"c\": \"64729\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "18205aba-93a9-4111-9ffe-f42bbb775d90",
+          "name": "24h price sparkline for a single coin",
+          "request": {
+            "name": "24h price sparkline for a single coin",
+            "description": {},
+            "url": {
+              "path": [
+                "sparklines",
+                ":coin"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "coin",
+                  "description": "(Required) Coin symbol, e.g. `BTC`."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f115f17c-05ed-4f0b-a86f-df7d9e829fd6",
+              "name": "Sparkline for the requested coin.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "sparklines",
+                    ":coin"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "coin",
+                      "description": "(Required) Coin symbol, e.g. `BTC`."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": {\n    \"candles\": [\n      {\n        \"t\": 9290,\n        \"c\": \"string\"\n      },\n      {\n        \"t\": 7940,\n        \"c\": \"string\"\n      }\n    ]\n  },\n  \"key_1\": {\n    \"candles\": [\n      {\n        \"t\": 8912,\n        \"c\": \"string\"\n      },\n      {\n        \"t\": 8206,\n        \"c\": \"string\"\n      }\n    ]\n  },\n  \"key_2\": {\n    \"candles\": [\n      {\n        \"t\": 6403,\n        \"c\": \"string\"\n      },\n      {\n        \"t\": 7520,\n        \"c\": \"string\"\n      }\n    ]\n  },\n  \"key_3\": {\n    \"candles\": [\n      {\n        \"t\": 8699,\n        \"c\": \"string\"\n      },\n      {\n        \"t\": 3258,\n        \"c\": \"string\"\n      }\n    ]\n  },\n  \"key_4\": {\n    \"candles\": [\n      {\n        \"t\": 3754,\n        \"c\": \"string\"\n      },\n      {\n        \"t\": 9718,\n        \"c\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.legend.trade",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "c59873d5-19a2-436d-a2e4-3a2a66eced55",
+    "name": "Legend Info Health Market Data API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The public read surface of Legend's trading platform, served at https://api.legend.trade. The service self-identifies as `@legend/hl-node` v0.1.0 — \"Hyperliquid-compatible info API with local processing\" — and mirrors the Hyperliquid `POST /info` request-type convention while adding Legend-specific endpoints (`/sparklines`) and an operator-authenticated wallet registration surface used for fill tracking.\nThis description was GENERATED by the API Evangelist enrichment pipeline from the API's own self-describing root document (GET https://api.legend.trade) and from live probes of each endpoint on 2026-07-19. Legend publishes an `openapi.json` at docs.legend.trade/api-reference/openapi.json, but as of this run that file is the unmodified Mintlify \"OpenAPI Plant Store\" scaffold and does not describe the Legend API — it was deliberately NOT harvested. Request/response schemas below are typed only where a live response was observed; unobserved shapes are left open rather than invented.\n\nContact Support:\n Name: Legend",
+      "type": "text/plain"
+    }
+  }
+}

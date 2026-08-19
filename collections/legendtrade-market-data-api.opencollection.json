@@ -1,0 +1,62 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Legend Info Health Market Data API",
+    "version": "0.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Market Data",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "24h price sparklines for multiple coins",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.legend.trade/sparklines",
+            "params": [
+              {
+                "name": "coins",
+                "value": "BTC,ETH",
+                "type": "query",
+                "description": "Comma-separated coin symbols, e.g. `BTC,ETH`."
+              }
+            ]
+          },
+          "docs": "Legend-custom endpoint. Returns 24 hours of close-price candles keyed by coin symbol. Candle entries carry `t` (epoch milliseconds) and `c` (close price as a string)."
+        },
+        {
+          "info": {
+            "name": "24h price sparkline for a single coin",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.legend.trade/sparklines/:coin",
+            "params": [
+              {
+                "name": "coin",
+                "value": "BTC",
+                "type": "path",
+                "description": "Coin symbol, e.g. `BTC`."
+              }
+            ]
+          },
+          "docs": "24h price sparkline for a single coin"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

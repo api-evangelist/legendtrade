@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Legend Info Health API",
+    "version": "0.1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Health",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Health check",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.legend.trade/health"
+          },
+          "docs": "Returns service health, the deployed git SHA, a server timestamp, and per-dependency check results (Hyperliquid visor and Postgres) with latency in milliseconds."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
