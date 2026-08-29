@@ -11,6 +11,18 @@ description: >-
   Hyperliquid-compatible read API at api.legend.trade (a multiplexed POST /info endpoint, custom
   sparklines, and an authenticated wallet-registration surface) plus a subscription-based WebSocket
   carrying market-data and account channels. Legend is backed by Electric Capital.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
