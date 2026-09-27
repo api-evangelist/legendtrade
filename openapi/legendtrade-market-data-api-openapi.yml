@@ -75,11 +75,6 @@ paths:
                 $ref: '#/components/schemas/SparklineMap'
 components:
   schemas:
-    SparklineMap:
-      type: object
-      description: Sparklines keyed by coin symbol.
-      additionalProperties:
-        $ref: '#/components/schemas/Sparkline'
     Candle:
       type: object
       properties:
@@ -96,6 +91,11 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Candle'
+    SparklineMap:
+      type: object
+      description: Sparklines keyed by coin symbol.
+      additionalProperties:
+        $ref: '#/components/schemas/Sparkline'
   securitySchemes:
     bearerAuth:
       type: http

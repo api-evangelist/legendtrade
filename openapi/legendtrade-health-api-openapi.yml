@@ -49,13 +49,6 @@ paths:
                     latencyMs: 235
 components:
   schemas:
-    HealthCheck:
-      type: object
-      properties:
-        status:
-          type: string
-        latencyMs:
-          type: integer
     Health:
       type: object
       properties:
@@ -72,6 +65,13 @@ components:
           type: object
           additionalProperties:
             $ref: '#/components/schemas/HealthCheck'
+    HealthCheck:
+      type: object
+      properties:
+        status:
+          type: string
+        latencyMs:
+          type: integer
   securitySchemes:
     bearerAuth:
       type: http
