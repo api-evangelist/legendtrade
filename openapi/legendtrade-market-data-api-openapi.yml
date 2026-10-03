@@ -75,15 +75,6 @@ paths:
                 $ref: '#/components/schemas/SparklineMap'
 components:
   schemas:
-    Candle:
-      type: object
-      properties:
-        t:
-          type: integer
-          description: Candle timestamp, epoch milliseconds.
-        c:
-          type: string
-          description: Close price, decimal string.
     Sparkline:
       type: object
       properties:
@@ -96,6 +87,15 @@ components:
       description: Sparklines keyed by coin symbol.
       additionalProperties:
         $ref: '#/components/schemas/Sparkline'
+    Candle:
+      type: object
+      properties:
+        t:
+          type: integer
+          description: Candle timestamp, epoch milliseconds.
+        c:
+          type: string
+          description: Close price, decimal string.
   securitySchemes:
     bearerAuth:
       type: http

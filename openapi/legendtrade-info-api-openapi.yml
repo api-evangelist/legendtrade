@@ -76,14 +76,6 @@ paths:
                 error: 'Unknown request type: bogusType'
 components:
   schemas:
-    Error:
-      type: object
-      description: Legend's error envelope — a single `error` string.
-      properties:
-        error:
-          type: string
-      required:
-      - error
     InfoRequest:
       type: object
       description: Hyperliquid-compatible info request. Additional per-type fields are permitted.
@@ -103,6 +95,14 @@ components:
       required:
       - type
       additionalProperties: true
+    Error:
+      type: object
+      description: Legend's error envelope — a single `error` string.
+      properties:
+        error:
+          type: string
+      required:
+      - error
   securitySchemes:
     bearerAuth:
       type: http
