@@ -99,15 +99,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  schemas:
-    Error:
-      type: object
-      description: Legend's error envelope — a single `error` string.
-      properties:
-        error:
-          type: string
-      required:
-      - error
   responses:
     Unauthorized:
       description: Missing or invalid credentials.
@@ -117,6 +108,15 @@ components:
             $ref: '#/components/schemas/Error'
           example:
             error: Unauthorized
+  schemas:
+    Error:
+      type: object
+      description: Legend's error envelope — a single `error` string.
+      properties:
+        error:
+          type: string
+      required:
+      - error
   securitySchemes:
     bearerAuth:
       type: http

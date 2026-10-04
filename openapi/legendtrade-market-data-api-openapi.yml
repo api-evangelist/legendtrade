@@ -75,18 +75,6 @@ paths:
                 $ref: '#/components/schemas/SparklineMap'
 components:
   schemas:
-    Sparkline:
-      type: object
-      properties:
-        candles:
-          type: array
-          items:
-            $ref: '#/components/schemas/Candle'
-    SparklineMap:
-      type: object
-      description: Sparklines keyed by coin symbol.
-      additionalProperties:
-        $ref: '#/components/schemas/Sparkline'
     Candle:
       type: object
       properties:
@@ -96,6 +84,18 @@ components:
         c:
           type: string
           description: Close price, decimal string.
+    SparklineMap:
+      type: object
+      description: Sparklines keyed by coin symbol.
+      additionalProperties:
+        $ref: '#/components/schemas/Sparkline'
+    Sparkline:
+      type: object
+      properties:
+        candles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Candle'
   securitySchemes:
     bearerAuth:
       type: http
