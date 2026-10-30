@@ -64,32 +64,146 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Legend (legend.trade) is a competitive social trading platform — "the esports layer for trading". Users trade perpetual contracts across 500+ crypto, equity, and commodity markets with leverage, wrapped in game mechanics: Arena head-to-head duels with ELO ratings and wagers, clans, leaderboards, a social feed, referrals, and copy trading. Orders execute on Hyperliquid's on-chain order book, with Legend charging a builder-code platform fee on top of Hyperliquid's volume-tiered maker/taker fees. Available on iOS, Android, web, and a Telegram bot.
+Legend (legend.trade) is a competitive social trading platform — it describes itself as "the esports layer for trading". Users trade perpetual contracts across 500+ crypto, equity, and commodity markets with leverage, and the platform wraps that in game mechanics: Arena head-to-head duels with ELO ratings and wagers, clans, leaderboards, a social feed, referrals, and copy trading that mirrors top traders in a single tap. Orders placed on Legend execute on Hyperliquid's on-chain order book, with Legend charging a builder-code platform fee on top of Hyperliquid's volume-tiered maker/taker fees. Legend is available on iOS, Android, web, and through a Telegram bot. Its programmable surface is a Hyperliquid-compatible read API at api.legend.trade (a multiplexed POST /info endpoint, custom sparklines, and an authenticated wallet-registration surface) plus a subscription-based WebSocket carrying market-data and account channels. Legend is backed by Electric Capital.
 
-Backed by: electric-capital — https://www.legend.trade/
+**Areas:** Company · DeFi · Trading · Cryptocurrency · Perpetual Futures · Social Trading · Copy Trading · Market Data · Hyperliquid · WebSocket · Real-Time
 
-## API surface
+## LegendTrade on APIs.io
 
-Legend runs a **Hyperliquid-compatible read API** at `https://api.legend.trade`, self-identifying as `@legend/hl-node`:
+Everything profiled for LegendTrade is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/legendtrade/](https://apis.io/providers/legendtrade/)** — or go straight to one of the APIs or properties below.
 
-- `POST /info` — multiplexed market and account queries selected by request `type`
-- `GET /sparklines` — Legend-custom 24h close-price candles
-- `GET /health` — build SHA and per-dependency latency
-- `POST/DELETE /wallets/*` — authenticated fill-tracking surface
-- `wss://api.legend.trade/ws` — subscription WebSocket, 3 market-data and 13 account channels
+### APIs (5)
 
-## Artifacts
+- [Legend WebSocket API](https://apis.io/apis/legendtrade/websocket/) — Legend's Hyperliquid-compatible WebSocket at wss://api.legend.trade/ws, using subscription-based messaging. Public marketData channels stream trades,…
+- [LegendTrade Health API](https://apis.io/apis/legendtrade/legendtrade-health-api/) — Service health and liveness.
+- [LegendTrade Info API](https://apis.io/apis/legendtrade/legendtrade-info-api/) — Hyperliquid-compatible market and account info queries.
+- [LegendTrade Market Data API](https://apis.io/apis/legendtrade/legendtrade-market-data-api/) — Legend-specific market data extensions.
+- [LegendTrade Wallets API](https://apis.io/apis/legendtrade/legendtrade-wallets-api/) — Wallet registration for fill tracking (authenticated).
 
-| Artifact | Method |
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Legend WebSocket API](https://apis.io/asyncapis/legendtrade/legendtrade-ws-asyncapi/)
+
+#### Event channels (16)
+
+Individual events and webhooks the provider emits.
+
+- [activeAssetCtx](https://apis.io/channels/legendtrade/activeassetctx/)
+- [activeAssetData](https://apis.io/channels/legendtrade/activeassetdata/)
+- [candle](https://apis.io/channels/legendtrade/candle/)
+- [clearinghouseState](https://apis.io/channels/legendtrade/clearinghousestate/)
+- [notification](https://apis.io/channels/legendtrade/notification/)
+- [openOrders](https://apis.io/channels/legendtrade/openorders/)
+- [orderUpdates](https://apis.io/channels/legendtrade/orderupdates/)
+- [trades](https://apis.io/channels/legendtrade/trades/)
+- [twapStates](https://apis.io/channels/legendtrade/twapstates/)
+- [userEvents](https://apis.io/channels/legendtrade/userevents/)
+- [userFills](https://apis.io/channels/legendtrade/userfills/)
+- [userFundings](https://apis.io/channels/legendtrade/userfundings/)
+- [userNonFundingLedgerUpdates](https://apis.io/channels/legendtrade/usernonfundingledgerupdates/)
+- [userTwapHistory](https://apis.io/channels/legendtrade/usertwaphistory/)
+- [userTwapSliceFills](https://apis.io/channels/legendtrade/usertwapslicefills/)
+- [webData3](https://apis.io/channels/legendtrade/webdata3/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [legendtrade](https://apis.io/servers/legendtrade/legendtrade/)
+
+#### Collections (4)
+
+Postman and Open Collection request collections.
+
+- [Legend Info Health API](https://apis.io/collections/legendtrade/open-legendtrade-health-api/)
+- [Legend Health Info API](https://apis.io/collections/legendtrade/open-legendtrade-info-api/)
+- [Legend Info Health Market Data API](https://apis.io/collections/legendtrade/open-legendtrade-market-data-api/)
+- [Legend Info Health Wallets API](https://apis.io/collections/legendtrade/open-legendtrade-wallets-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Legendtrade Info Overlay](https://apis.io/overlays/legendtrade/legendtrade-info-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Legendtrade Authentication](https://apis.io/security/legendtrade/legendtrade-authentication/)
+- [Legendtrade Domain Security](https://apis.io/security/legendtrade/legendtrade-domain-security/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.legend.trade/)
+- [Documentation](https://docs.legend.trade)
+- [Getting started](https://docs.legend.trade/about/overview)
+- [Pricing](https://docs.legend.trade/about/fees)
+- [Sign up](https://app.legend.trade/login)
+- [Support](https://www.legend.trade/faq)
+- [Blog](https://www.legend.trade/blog)
+- [Terms of service](https://www.legend.trade/terms)
+- [Privacy policy](https://www.legend.trade/privacy)
+
+## API Evangelist rating
+
+**Kin Score 40.8** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
 |---|---|
-| `openapi/` | generated from the API's self-describing root + live probes |
-| `asyncapi/` | generated from the root document's `wsSubscriptions` |
-| `llms/` | **searched** — Legend publishes a real `llms.txt` |
-| `conventions/`, `errors/`, `lifecycle/`, `conformance/`, `data-model/`, `authentication/` | derived |
-| `security/legendtrade-domain-security.yml` | probed |
-| `mcp/`, `skills/`, `overlays/` | generated |
-| `well-known/` | probed — all paths 404, recorded as a negative result |
+| Discoverability | 73.2 |
+| Contract quality | 55.8 |
+| Contract governance | 4.5 |
+| Operational transparency | 0.0 |
+| Developer ergonomics | 51.8 |
+| Access clarity | 44.7 |
 
-**Note on the published spec.** Legend's `llms.txt` links an `openapi.json` at `docs.legend.trade/api-reference/openapi.json`. As of 2026-07-19 that file is the unmodified Mintlify "OpenAPI Plant Store" sample scaffold and does not describe the Legend API — it was deliberately not harvested. The spec in `openapi/` was generated from the API's own self-describing root document and verified against live endpoints.
+**Agent readiness 24.8** — agent-aware
 
-**Not present** (probed, absent): status page, trust center, security.txt, deprecation policy, SLA, changelog, first-party SDKs, CLI, sandbox, OAuth, webhooks, rate-limit documentation.
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | derived (partial credit) |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | — |
+| Event Surface Described | derived (partial credit) |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 23.1** — Securities & Market Data
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/legendtrade/](https://apis.io/providers/legendtrade/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for LegendTrade: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/legendtrade/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
